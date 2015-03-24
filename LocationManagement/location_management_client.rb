@@ -2,5 +2,5 @@ require 'httparty'
 
 class LocationManagementClient
   include HTTParty
-  base_uri 'http://localhost:9494'
+  base_uri 'http://localhost:9292'
 end

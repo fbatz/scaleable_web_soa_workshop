@@ -2,23 +2,19 @@ require 'rubygems'
 require 'bundler'
 Bundler.require
 
-set :port=> 8000
+require './ItemTracking/item_tracking_api'
+require './ReportSystem/report_system_api'
+require './LocationManagement/location_management_api'
+require './UserManagement/user_management'
+require './UserManagement/middleware'
 
-app = Rack::Builder.new do
-    map "/user" do
+user_management = Rack::Builder.new {
       use Middleware
       run UserManagement.new
-      p 'UM started'
-    end
-    map "/items" do
-      run ItemTrackingAPI.new
-      p 'Item started'
-    end
-    map "/locations" do
-     run LocationManagementAPI.new
-     p 'Locs started'
-    end
+    }
 
-end
-
-run app
+run Rack::Cascade.new [
+	user_management,
+	ItemTrackingAPI, 
+	ReportSystemAPI, 
+	LocationManagementAPI]

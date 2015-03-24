@@ -13,16 +13,11 @@ require_relative '../UserManagement/user_management'
 describe 'Report System API' do
   include Rack::Test::Methods
 
-  # starts the LocationManagementAPI and ItemTrackingAPI by console commands
+  # starts all services with the config file
   before(:all) do
     @pid = Process.fork do
       Dir.chdir(File.expand_path("../../", __FILE__))
-      exec "rackup -o 0.0.0.0 -p 9494 config.locations.api.ru"
-    end
-    sleep 3
-    @pid2 = Process.fork do
-      Dir.chdir(File.expand_path("../../", __FILE__))
-      exec "rackup -o 0.0.0.0 -p 9292 config.items.api.ru"
+      exec "rackup -o 0.0.0.0 -p 9292 config.ru"
     end
     sleep 3
   end
@@ -30,21 +25,21 @@ describe 'Report System API' do
   # kills the LocationManagementAPI and ItemTrackingAPI by console commands
   after(:all) do
     Process.kill "INT", @pid
-    Process.kill "INT", @pid2
     Process.wait
   end
 
-  #APP = Rack::Builder.parse_file('config.ru').first
+  # APP = Rack::Builder.parse_file('config.ru').first
 
-
-  # starts the ReportSystemAPI
   def app
-    #APP
-    ReportSystemAPI.new
+    ReportSystemAPI
   end
 
   def body
     JSON.parse(last_response.body)
+  end
+
+  before do
+    basic_authorize('alfred', 'hitchcock')
   end
 
   # sends a get request to get all locations, with their appropriate items

@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'json'
+require 'net/http'
 
 require_relative '../ItemTracking/item_tracking_client'
 require_relative '../LocationManagement/location_management_client'
@@ -9,12 +10,16 @@ class ReportSystemAPI < Sinatra::Base
 
   get '/reports/by_location' do
 
+    headers = {}
+    headers["AUTHORIZATION"] = env["HTTP_AUTHORIZATION"] if env["HTTP_AUTHORIZATION"]
+    headers["ACCEPT"] = env["HTTP_ACCEPT"] if env["HTTP_ACCEPT"]
+
     # sends a get request to the ItemTrackingAPI, to get all items
-    items = ItemTrackingClient.get("/items").body
+    items = ItemTrackingClient.get("/items", headers: headers).body
     items = JSON.parse(items)
 
     # sends a get request to the LocationManagementAPI, to get all locations
-    locations = LocationManagementClient.get("/locations").body
+    locations = LocationManagementClient.get("/locations", headers: headers).body
     locations = JSON.parse(locations)
 
     # combines data from the location and item tracking system 
