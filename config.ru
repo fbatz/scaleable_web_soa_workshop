@@ -14,7 +14,7 @@ user_management = Rack::Builder.new {
     }
 
 run Rack::Cascade.new [
-	user_management,
 	ItemTrackingAPI, 
 	ReportSystemAPI, 
-	LocationManagementAPI]
+	LocationManagementAPI,
+	user_management]

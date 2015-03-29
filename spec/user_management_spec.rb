@@ -12,6 +12,7 @@ describe UserManagement do
     }
   }
 
+  # sends a get request without authorization credentials
   context 'unauthorized' do
     describe "/user" do
       before do
@@ -24,9 +25,10 @@ describe UserManagement do
     end
   end
 
+  # sends a get request with wrong authorization credentials
   context 'authorized with wrong credentials' do
     before do
-      basic_authorize('paul', 'hitchcock')
+      basic_authorize('wrong', 'credentials')
     end
 
     describe "/user" do
@@ -40,9 +42,10 @@ describe UserManagement do
     end
   end
 
+  # sends a get request with right authorization credentials
   context 'correctly authorized' do
     before do
-      basic_authorize('alfred', 'hitchcock')
+      basic_authorize('paul', 'thepanther')
     end
 
     describe "/user" do
