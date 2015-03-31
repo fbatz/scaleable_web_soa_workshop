@@ -6,19 +6,19 @@ class ItemTrackingAPI < Grape::API
   # only for testing purpose
   items = [
     {
-      "name": "Johannas PC",
-      "location": 562,
-      "id": 456
+      "name"=> "Johannas PC",
+      "location"=> 562,
+      "id"=> 456
     },
     {
-      "name": "Johannas desk",
-      "location": 562,
-      "id": 457
+      "name"=> "Johannas desk",
+      "location"=> 562,
+      "id"=> 457
     },
     {
-      "name": "Lobby chair #1",
-      "location": 563,
-      "id": 501
+      "name"=> "Lobby chair #1",
+      "location"=> 563,
+      "id"=> 501
     }
   ]
 
@@ -54,7 +54,7 @@ class ItemTrackingAPI < Grape::API
       # deletes the item specified by the ID
       items.delete_if{|e| e['id'] == params[:id].to_i}
       # returns status 200 and an empty body
-      body false
+      status 200
     else
       # returns status 404 if the supplied ID does not exist.
       error!('404 ID does not exist.', 404)

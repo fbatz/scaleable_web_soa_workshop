@@ -6,19 +6,19 @@ class LocationManagementAPI < Grape::API
   # only for testing purpose
   locations = [
     {
-      "name": "Office Alexanderstraße",
-      "address": "Alexanderstraße 45, 33853 Bielefeld, Germany",
-      "id": 562
+      "name"=> "Office Alexanderstraße",
+      "address"=> "Alexanderstraße 45, 33853 Bielefeld, Germany",
+      "id"=> 562
     },
     {
-      "name": "Warehouse Hamburg",
-      "address": "Gewerbestraße 1, 21035 Hamburg, Germany",
-      "id": 563
+      "name"=> "Warehouse Hamburg",
+      "address"=> "Gewerbestraße 1, 21035 Hamburg, Germany",
+      "id"=> 563
     },
     {
-      "name": "Headquarters Salzburg",
-      "address": "Mozart Gasserl 4, 13371 Salzburg, Austria",
-      "id": 568
+      "name"=> "Headquarters Salzburg",
+      "address"=> "Mozart Gasserl 4, 13371 Salzburg, Austria",
+      "id"=> 568
     }
   ]
 
@@ -54,7 +54,7 @@ class LocationManagementAPI < Grape::API
       # deletes the location specified by the ID
       locations.delete_if{|e| e['id'] == params[:id].to_i}
       # returns status 200 and an empty body
-      body false
+      status 200
     else
       # returns status 404 if the supplied ID does not exist.
       error!('404 ID does not exist.', 404)

@@ -20,8 +20,3 @@ class Middleware
     end
   end
 end
-
-# User  Password
-# wanda partyhard2000
-# paul  thepanther
-# anne  flytothemoon

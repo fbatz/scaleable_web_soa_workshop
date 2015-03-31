@@ -61,9 +61,7 @@ describe 'Location Management API' do
   it 'should delete a location' do
     delete '/locations/1'
     
-    # should respond with 204 and an empty body
-    # 204 is the status code for no body return (body false)
-    expect(last_response.status).to eq(204)
-    expect(last_response.body).to eq ""
+    # should respond with 200 
+    expect(last_response).to be_ok
   end
 end
